@@ -1,0 +1,18 @@
+/* TODO PAGE specific layout */
+body[data-screen="TODO_PAGE"] .screen {
+  background: var(--color-d6d7ef); /* Background rect style_1 visible behind cards */
+}
+
+/* Adjust app bar over background */
+body[data-screen="TODO_PAGE"] .app-bar {
+  /* style_2 applied in common */
+}
+
+/* Ensure todo-list area thinks of app-bar and status bar */
+body[data-screen="TODO_PAGE"] .todo-list {
+  top: calc(var(--statusbar-h) + (var(--appbar-h) - 78px)); 
+  /* In Figma, first card top is 140px from frame top; app-bar title sits at 60px.
+     We preserve top: 140px directly via common, but keep this to guard future changes. */
+}
+
+/* Bottom nav already absolute bottom, kept white per Figma */

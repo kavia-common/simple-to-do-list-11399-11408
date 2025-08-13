@@ -1,0 +1,366 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;600&display=swap');
+
+/* Design tokens as CSS variables (from design_system_b2c-11399-*.json) */
+:root {
+  /* Colors */
+  --color-ffffff: #ffffff;
+  --color-d6d7ef: #d6d7ef;
+  --color-9395d3: #9395d3;
+  --color-8b8787: #8b8787;
+  --color-000000: #000000;
+  --color-d1d1d6: #d1d1d6;
+  --color-ebebf5: #ebebf5;
+  --color-34c759: #34c759;
+  --color-ffd60a: #ffd60a;
+  --color-b3b7ee: #b3b7ee;
+
+  /* Typography sizes (px) */
+  --fs-10: 10px;   /* typo_0/6/7/10 */
+  --fs-13: 13px;   /* typo_2/9 */
+  --fs-15: 15px;   /* typo_5/13 */
+  --fs-16: 16px;   /* typo_3/11 */
+  --fs-20: 20px;   /* typo_4/12 */
+  --fs-24: 24px;   /* typo_1/8 */
+
+  /* Typography weights */
+  --fw-400: 400;
+  --fw-600: 600;
+
+  /* Family */
+  --font-jost: "Jost", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+
+  /* Radii */
+  --radius-1: 1px;
+  --radius-15: 15px;
+  --radius-20: 20px;
+
+  /* Shadows */
+  --shadow-0: 0 4px 4px rgba(0, 0, 0, 0.10);
+
+  /* Screen */
+  --screen-w: 414px;
+  --screen-h: 896px;
+
+  /* Measured layout offsets derived from Figma */
+  --statusbar-h: 44px;
+  --appbar-h: 118px;
+  --bottomnav-h: 68px;
+
+  /* Specific measured gaps from Figma for TODO_PAGE */
+  --list-side-margin: 7px;        /* (414 - 400) / 2 */
+  --list-card-w: 400px;
+  --list-card-h: 82px;
+  --list-top-offset: 140px;       /* y(-812) - frameTop(-952) = 140 */
+  --icon-top-in-card: 29px;       /* y(-783) - cardTop(-812) = 29 */
+
+  /* Icon right offsets in card (computed from figma x): pencil: 115, trash: 70, check: 25 */
+  --icon-right-pencil: 115px;
+  --icon-right-trash: 70px;
+  --icon-right-check: 25px;
+
+  /* FAB positioning from Figma */
+  --fab-right: 22px;              /* right margin from frame */
+  --fab-bottom: 89px;             /* distance from bottom of frame */
+}
+
+/* Base reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: var(--color-ffffff);
+  color: var(--color-000000);
+  font-family: var(--font-jost);
+}
+
+/* Screen wrapper following Figma dimensions */
+.screen {
+  width: var(--screen-w);
+  min-height: var(--screen-h);
+  margin: 0 auto;
+  position: relative;
+  background: var(--color-ffffff);
+  overflow: hidden;
+}
+
+/* Status bar placeholder (44px height) */
+.status-bar {
+  height: var(--statusbar-h);
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* App bar (118px height), background: style_2 color_9395d3 */
+.app-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: var(--appbar-h);
+  width: 100%;
+  background: var(--color-9395d3);
+}
+
+/* Large title inside app-bar (typo_8) — positioned ~60px from top, 19px from left */
+.app-bar .title-large {
+  position: absolute;
+  top: 60px;     /* derived from y(-892) - top(-952) = 60 */
+  left: 19px;    /* derived from x(-732) - left(-751) = 19 */
+  font-size: var(--fs-24);
+  font-weight: var(--fw-600);
+  line-height: 34.68px; /* per token */
+  color: var(--color-ffffff);
+  margin: 0;
+}
+
+/* Right calendar icon touch area 60x60 from Figma positioned near right */
+.app-bar .calendar-button {
+  position: absolute;
+  top: 47px;   /* y(-905) - top(-952) = 47 */
+  right: 7px;  /* from x(-404): left offset 347, so right gap ≈ 414 - (347 + 60) = 7 */
+  width: 60px;
+  height: 60px;
+  display: grid;
+  place-items: center;
+}
+.app-bar .calendar-button svg {
+  width: 32px;
+  height: 32px;
+}
+
+/* Bottom Navigation (68px height), bg style_0 white */
+.bottom-nav {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: var(--bottomnav-h);
+  width: 100%;
+  background: var(--color-ffffff);
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+
+/* Nav item: icon (30x30) over label (typo_6/typo_7) */
+.bottom-nav .nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 12px; /* icon y(-112) - barTop(-124) = 12px */
+  min-width: 80px;
+}
+.bottom-nav .nav-item svg {
+  width: 30px;
+  height: 30px;
+  display: block;
+}
+.bottom-nav .nav-item .label {
+  margin-top: 9px; /* label y(-85) - barTop(-124) = 39px, 39-30(icon)-? => ~9px */
+  font-size: var(--fs-10);
+  line-height: 14.45px;
+  font-weight: var(--fw-400);
+  color: var(--color-8b8787); /* default grey (Completed in Figma when not selected) */
+}
+.bottom-nav .nav-item.selected .label {
+  color: var(--color-9395d3); /* purple (All in Figma) */
+}
+
+/* FAB - Add New ToDo Button: ellipse 70x70 with shadow style_21 and bg style_2 (9395d3) */
+.fab {
+  position: absolute;
+  right: var(--fab-right);
+  bottom: var(--fab-bottom);
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: var(--color-9395d3);
+  box-shadow: var(--shadow-0);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  border: none;
+}
+.fab svg {
+  width: 21px;
+  height: 24px;
+}
+.fab .plus-stroke {
+  stroke: var(--color-ffffff);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+/* Todo list container */
+.todo-list {
+  position: absolute;
+  top: var(--list-top-offset);
+  left: 0;
+  right: 0;
+  bottom: calc(var(--bottomnav-h) + 16px);
+  overflow-y: auto;
+  padding: 0 var(--list-side-margin);
+}
+
+/* Todo card style (style_22: white, radius 15, shadow_0), fixed height 82, width 400 centered with 7px sides */
+.todo-card {
+  position: relative;
+  width: var(--list-card-w);
+  height: var(--list-card-h);
+  background: var(--color-ffffff);
+  border-radius: var(--radius-15);
+  box-shadow: var(--shadow-0);
+  margin: 0 auto 17px auto; /* vertical rhythm visually similar to Figma stacking */
+}
+
+/* Titles group inside card (per typo_9 and typo_10) with left padding aligning x(-725): cardLeft(-744) => 19px offset; top offsets: 22px title, then ~5px gap to subtitle */
+.todo-card .title {
+  position: absolute;
+  top: 22px;
+  left: 19px;
+  font-size: var(--fs-13);
+  font-weight: var(--fw-600);
+  line-height: 18.785px;
+  color: var(--color-9395d3);
+  margin: 0;
+}
+.todo-card .subtitle {
+  position: absolute;
+  top: 46px; /* 22 + 19 + ~5 gap */
+  left: 19px;
+  font-size: var(--fs-10);
+  font-weight: var(--fw-400);
+  line-height: 14.45px;
+  color: var(--color-000000);
+  margin: 0;
+}
+
+/* Right-side icon triad (25x25 each) aligned at 29px from top, with right offsets computed from Figma */
+.todo-card .icon-btn {
+  position: absolute;
+  top: var(--icon-top-in-card);
+  width: 25px;
+  height: 25px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+.todo-card .icon-btn svg {
+  width: 25px;
+  height: 25px;
+}
+.todo-card .icon-pencil { right: var(--icon-right-pencil); }
+.todo-card .icon-trash  { right: var(--icon-right-trash); }
+.todo-card .icon-check  { right: var(--icon-right-check); }
+
+/* Icon styling tokens */
+.icon-stroke {
+  stroke: var(--color-b3b7ee); /* style_15 */
+  stroke-width: 1.5;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.icon-fill {
+  fill: var(--color-b3b7ee); /* style_16 */
+}
+
+/* Completed state for card (not in Figma explicitly, but for interaction) */
+.todo-card.completed .title {
+  color: var(--color-34c759);
+}
+.todo-card.completed .subtitle {
+  color: var(--color-8b8787);
+}
+.todo-card.completed {
+  outline: 0;
+}
+
+/* Inputs and add button styles used on ADD_TODO */
+.form-wrap {
+  position: absolute;
+  left: 29px; /* from x(-282) - frameLeft(-311) = 29px alignment */
+  width: 356px;
+}
+.field-group {
+  width: 356px;
+}
+.field-label {
+  font-size: var(--fs-16);
+  font-weight: var(--fw-400);
+  line-height: 23.12px;
+  color: var(--color-8b8787);
+  margin: 0;
+}
+.field-input {
+  width: 356px;
+  border: none;
+  border-bottom: 1px solid var(--color-8b8787); /* style_18 */
+  font-family: var(--font-jost);
+  font-size: var(--fs-16);
+  padding: 6px 0;
+  outline: none;
+  background: transparent;
+  color: var(--color-000000);
+}
+.add-button {
+  position: absolute;
+  left: 14px;       /* from x(-297) - frameLeft(-311) = 14px */
+  width: 386px;     /* per figma */
+  height: 65px;     /* 65.065 in figma, rounded */
+  background: var(--color-9395d3); /* style_23 bg */
+  border-radius: var(--radius-15); /* style_23 radius */
+  box-shadow: var(--shadow-0);     /* style_23 shadows */
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+.add-button .add-text {
+  font-size: var(--fs-20);
+  font-weight: var(--fw-600);
+  line-height: 28.9px;
+  color: var(--color-ffffff);
+}
+
+/* Back button (vector stroke 3px white as style_17) */
+.back-button {
+  position: absolute;
+  top: 78px;    /* around y(-874) - top(-952) = 78 */
+  left: 26px;   /* approximate alignment near app title */
+  width: 25px;
+  height: 25px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+.back-button .arrow {
+  width: 25px;
+  height: 25px;
+}
+.back-button .arrow path {
+  stroke: var(--color-ffffff);
+  stroke-width: 3;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Utility: visually hidden (not currently needed, reserved) */
+.visually-hidden {
+  position: absolute !important;
+  clip: rect(0 0 0 0) !important;
+  clip-path: inset(50%) !important;
+  height: 1px !important;
+  width: 1px !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+  padding: 0 !important;
+  margin: -1px !important;
+}

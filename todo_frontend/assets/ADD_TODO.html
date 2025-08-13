@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ADD TODO</title>
+  <link rel="stylesheet" href="./common.css" />
+  <link rel="stylesheet" href="./ADD_TODO.css" />
+</head>
+<body data-screen="ADD_TODO">
+  <div class="screen" aria-label="ADD TODO">
+
+    <!-- Status Bar (placeholder) -->
+    <div class="status-bar" aria-hidden="true"></div>
+
+    <!-- App Bar -->
+    <header class="app-bar" role="banner">
+      <h1 class="title-large">Add Task</h1>
+
+      <!-- Back Button (Turn BackPage Button style_17 3px white stroke) -->
+      <button class="back-button" id="btn-back" aria-label="Go back">
+        <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M15 4 L7 12 L15 20" />
+        </svg>
+      </button>
+    </header>
+
+    <!-- Title Field Group -->
+    <section class="form-wrap title-group">
+      <div class="field-group">
+        <label class="field-label" for="todo-title">Title</label>
+        <input id="todo-title" class="field-input" type="text" placeholder="Enter ToDo Title" aria-label="Enter ToDo Title" />
+      </div>
+    </section>
+
+    <!-- Detail Field Group -->
+    <section class="form-wrap detail-group">
+      <div class="field-group">
+        <label class="field-label" for="todo-detail">Detail</label>
+        <input id="todo-detail" class="field-input" type="text" placeholder="Enter ToDo Detail" aria-label="Enter ToDo Detail" />
+      </div>
+    </section>
+
+    <!-- Add Button (style_23) -->
+    <button class="add-button" id="btn-add">
+      <span class="add-text">ADD</span>
+    </button>
+
+  </div>
+  <script src="./app.js"></script>
+</body>
+</html>

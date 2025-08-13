@@ -1,0 +1,28 @@
+/* ADD TODO specific layout */
+body[data-screen="ADD_TODO"] .screen {
+  background: var(--color-ffffff); /* style_0 background */
+}
+
+/* App bar keeps style_2 purple; ADD TODO title must be at left: 88px (x -223 vs frame -311) */
+body[data-screen="ADD_TODO"] .app-bar .title-large {
+  left: 88px;
+}
+
+/* Form positions matching Figma y offsets */
+body[data-screen="ADD_TODO"] .form-wrap.title-group {
+  top: 161px; /* y(-791) - top(-952) = 161 */
+  left: 29px; /* x(-282) - frameLeft(-311) = 29 */
+}
+body[data-screen="ADD_TODO"] .form-wrap.detail-group {
+  top: 233px; /* y(-719) - top(-952) = 233 (i.e., 161 + 72) */
+  left: 32px; /* x(-279) - frameLeft(-311) = 32 */
+}
+body[data-screen="ADD_TODO"] .add-button {
+  top: 316px; /* y(-636) - top(-952) = 316 */
+}
+
+/* Hide bottom nav and fab on Add screen */
+body[data-screen="ADD_TODO"] .bottom-nav,
+body[data-screen="ADD_TODO"] .fab {
+  display: none;
+}
